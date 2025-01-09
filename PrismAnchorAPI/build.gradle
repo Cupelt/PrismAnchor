@@ -48,6 +48,15 @@ jar{
 shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
     archiveClassifier.set('')
+
+    finalizedBy('copyToMainBuild')
+}
+
+tasks.register('copyToMainBuild', Copy) {
+    dependsOn(shadowJar) // shadowJar 작업이 먼저 실행되도록 설정
+    from("$buildDir/libs") // shadow JAR 파일 경로
+    include("*.jar") // JAR 파일만 복사
+    into("${rootProject.buildDir}/libs") // 메인 프로젝트의 빌드 폴더 내 경로
 }
 
 processResources {
