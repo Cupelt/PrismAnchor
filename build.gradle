@@ -4,7 +4,6 @@ plugins {
 }
 
 group = 'org.cupelt'
-version = '0.0.1-Alpha'
 
 repositories {
     mavenCentral()
@@ -47,6 +46,7 @@ jar {
 shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
     archiveClassifier.set('')
+    archiveVersion.set('')
 }
 
 subprojects {
