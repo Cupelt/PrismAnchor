@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'maven-publish'
 }
 
 group = 'org.cupelt.prismanchor'
@@ -15,14 +14,6 @@ repositories {
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
-    }
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
     }
 }
 

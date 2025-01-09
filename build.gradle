@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
-group = 'org.cupelt'
+group = 'org.cupelt.prismanchor'
 
 repositories {
     mavenCentral()
@@ -47,6 +48,14 @@ shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
     archiveClassifier.set('')
     archiveVersion.set('')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 subprojects {
