@@ -1,50 +1,58 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
-//jar {
-//    enabled = false
-//}
+group = 'org.cupelt'
+version = '0.0.1-Alpha'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
     }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    implementation "org.reflections:reflections:0.9.11"
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+jar {
+    enabled = false
+    dependsOn shadowJar
+}
+
+shadowJar {
+    relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
+    archiveClassifier.set('')
 }
 
 subprojects {
-    apply plugin: 'java-library'
-    apply plugin: 'maven-publish'
-
-    group = 'org.cupelt'
-    version = '1.0.0'
-
-    publishing {
-        repositories {
-            maven {
-                name = 'GitHubPackages'
-                url = uri('https://maven.pkg.github.com/Cupelt/PrismAnchor')
-                credentials {
-                    username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
-                    password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
-                }
-            }
-        }
-        publications {
-            gpr(MavenPublication) {
-                from components.java
-            }
-        }
-    }
-
-    // jar task - Add library name and version to the manifest file
-    tasks.jar {
-        manifest {
-            attributes(
-                    'Implementation-Title': project.name,
-                    'Implementation-Version': project.version
-            )
+    if (project == rootProject) {
+        tasks.withType(JavaCompile).configureEach {
+            enabled = false
         }
     }
 }

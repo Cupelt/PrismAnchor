@@ -1,4 +1,4 @@
-package org.cupelt.example.prismanchor.example;
+package org.cupelt.prismanchor.example;
 
 import org.cupelt.prismanchor.AbstractPlugin;
 

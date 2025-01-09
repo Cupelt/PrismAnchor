@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'org.cupelt.example'
+group = 'org.cupelt.prismanchor'
 version = '1.0.0'
 
 repositories {
@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
-    implementation project(":PrismAnchorAPI")
+    compileOnly rootProject
 }
 
 def targetJavaVersion = 17

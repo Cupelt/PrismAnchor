@@ -1,4 +1,4 @@
-package org.cupelt.example.prismanchor.example.inventory;
+package org.cupelt.prismanchor.example.inventory;
 
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;

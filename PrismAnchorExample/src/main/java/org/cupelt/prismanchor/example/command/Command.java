@@ -1,4 +1,4 @@
-package org.cupelt.example.prismanchor.example.command;
+package org.cupelt.prismanchor.example.command;
 
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.command.AbstractCommand;
