@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrismAnchor.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrismAnchor.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrismAnchor/PrismAnchorProject.PrismAnchor.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrismAnchor/PrismAnchorProject.PrismAnchor.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrismAnchorExample/PrismAnchorProject.PrismAnchorExample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrismAnchorExample/PrismAnchorProject.PrismAnchorExample.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrismAnchorProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrismAnchorProject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrismAnchorAPI/org.cupelt.PrismAnchorProject.PrismAnchorAPI.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrismAnchorAPI/org.cupelt.PrismAnchorProject.PrismAnchorAPI.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.cupelt.utils.main.iml" filepath="$PROJECT_DIR$/.idea/modules/org.cupelt.utils.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/utils.main.iml" filepath="$PROJECT_DIR$/.idea/modules/utils.main.iml" />
     </modules>
