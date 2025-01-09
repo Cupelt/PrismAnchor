@@ -7,6 +7,12 @@ plugins {
 //    enabled = false
 //}
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
