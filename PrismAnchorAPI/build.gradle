@@ -49,14 +49,18 @@ shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
     archiveClassifier.set('')
 
-    finalizedBy('copyToMainBuild')
+//    finalizedBy("copyToRootBuild")
+//    finalizedBy("clean")
 }
 
-tasks.register('copyToMainBuild', Copy) {
-    dependsOn(shadowJar) // shadowJar 작업이 먼저 실행되도록 설정
-    from("$buildDir/libs") // shadow JAR 파일 경로
-    include("*.jar") // JAR 파일만 복사
-    into("${rootProject.buildDir}/libs") // 메인 프로젝트의 빌드 폴더 내 경로
+// 서브프로젝트에서 루트로 복사하는 작업 정의
+tasks.register("copyToRootBuild", Copy) {
+    from(buildDir) // 서브프로젝트의 build 폴더
+    into("${rootProject.buildDir}") // 루트 build 폴더에 서브프로젝트 이름으로 복사
+}
+
+tasks.named("clean").configure {
+    delete "${rootProject.buildDir}"
 }
 
 processResources {
