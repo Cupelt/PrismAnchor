@@ -11,7 +11,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
 
-    group = 'ex.my.pk'
+    group = 'org.cupelt'
     version = '1.0.0'
 
     publishing {

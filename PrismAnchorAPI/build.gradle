@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.1'
-    id 'maven-publish'
 }
 
 group = 'org.cupelt'
@@ -53,21 +52,7 @@ shadowJar {
 //    finalizedBy("clean")
 }
 
-// 서브프로젝트에서 루트로 복사하는 작업 정의
 tasks.register("copyToRootBuild", Copy) {
-    from(buildDir) // 서브프로젝트의 build 폴더
-    into("${rootProject.buildDir}") // 루트 build 폴더에 서브프로젝트 이름으로 복사
-}
-
-tasks.named("clean").configure {
-    delete "${rootProject.buildDir}"
-}
-
-processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('paper-plugin.yml') {
-        expand props
-    }
+    from(buildDir)
+    into("${rootProject.buildDir}")
 }
