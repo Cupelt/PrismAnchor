@@ -2,6 +2,7 @@ package org.cupelt.example.prismanchor.example.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.cupelt.example.prismanchor.example.PrismAnchorExample;
 import org.cupelt.prismanchor.command.CommandPerformer;
 import org.cupelt.example.prismanchor.example.inventory.CustomInventory;
 
@@ -13,6 +14,6 @@ public class InventoryCommand implements CommandPerformer {
             return;
         }
 
-        player.openInventory(new CustomInventory(Test.getInstance()).getInventory());
+        player.openInventory(new CustomInventory(PrismAnchorExample.getInstance()).getInventory());
     }
 }
