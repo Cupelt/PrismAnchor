@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = 'org.cupelt.prismanchor'
-    version = '0.1.0-Alpha'
+    version = findProperty('version') ?: "SNAPSHOT"
 }
 
 subprojects {
