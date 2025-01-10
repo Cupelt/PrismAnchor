@@ -64,5 +64,5 @@ dependencies {
 3. 수정한 내용을 커밋한 후, 풀 리퀘스트를 제출합니다.
 4. 풀 리퀘스트의 병합이 승인되었다면 병합합니다.
 
-# Connect
+# 🔗 Connect
 궁금한 사항이나 문의가 있을 경우, 이메일로 연락해 주세요: CupeltHub@gmail.com
