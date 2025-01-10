@@ -1,2 +1,3 @@
 rootProject.name = 'PrismAnchor'
-include 'PrismAnchorExample'
+include 'PrismAnchorAPI', 'PrismAnchorExample'
+

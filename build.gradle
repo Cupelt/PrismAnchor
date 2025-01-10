@@ -1,67 +1,57 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
-group = 'org.cupelt.prismanchor'
-version = '1.0.0'
-
-repositories {
-    mavenCentral()
-    maven {
-        name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
-}
-
-dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
-    implementation "org.reflections:reflections:0.9.11"
-}
-
-def targetJavaVersion = 17
-java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release = targetJavaVersion
-    }
-}
-
-jar {
-    enabled = false
-    dependsOn shadowJar
-}
-
-shadowJar {
-    relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
-    archiveClassifier.set('')
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
+allprojects {
+    group = 'org.cupelt.prismanchor'
+    version = '0.1.0-Alpha'
 }
 
 subprojects {
-    if (project == rootProject) {
-        tasks.withType(JavaCompile).configureEach {
-            enabled = false
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "papermc-repo"
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
+    }
+
+    dependencies {
+        compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    }
+
+    def targetJavaVersion = 17
+    java {
+        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+            options.release = targetJavaVersion
+        }
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+            }
         }
     }
 }
