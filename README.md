@@ -16,7 +16,7 @@ PrismAnchorAPI makes working with the Bukkit API easier and improves code readab
    - And more...
 
 2. **AutoRegister/AutoGenerator**  
-   Automatically registers components such as `Event Listeners`, `Commands`, and `Configuration Instances`. It also provides options to auto-generate additional elements like `TabCompleters`.
+   Automatically registers components such as `Event Listeners`, `Commands`, and `YamlConfigurations`. It also provides options to auto-generate additional elements like `TabCompleters`.
 
 3. **Utility Tools**  
    Includes utilities like `ItemBuilder`, `MiniMessage`, `ChatColor`, `DateFormat`, and more.
