@@ -11,7 +11,7 @@ PrismAnchorAPI는 BukkitAPI를 보다 쉽게 사용할 수 있도록 만들며, 
     - Easy Compose YamlConfigurations
     - etc..
 2. AutoRegister/AutoGenerator  
-   `Event Listener`, `Command`, `Configurations Instance` 등을 자동으로 등록 해 주며.
+   `Event Listener`, `Command`, `YamlConfigurations` 등을 자동으로 등록 해 주며.
    `TabCompletor`와 같은 부가적 요소를 자동으로 생성할 수 있는 옵션을 제공합니다.
 4. 각종유틸  
    `ItemBuilder`, `Minimessage`, `ChatColor`, `DateFormat` 등등 각종 유틸을 제공합니다.
