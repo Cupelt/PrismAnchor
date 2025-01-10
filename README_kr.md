@@ -1,5 +1,5 @@
 # ✨ PrismAnchorAPI
-PrismAnchorAPI는 Minecraft Bukkit API를 보다 생산적이고 유연하게 사용할 수 있도록 돕는 모듈입니다. 이 모듈은 코드의 유지보수를 쉽게 만들고, 다양한 작업을 간소화하여 개발자의 작업 효율을 높혀줍니다.
+PrismAnchorAPI는 Minecraft BukkitAPI를 보다 생산적이고 유연하게 사용할 수 있도록 돕는 모듈입니다. 이 모듈은 코드의 유지보수를 쉽게 만들고, 다양한 작업을 간소화하여 개발자의 작업 효율을 높혀줍니다.
 
 ## 🚀 왜 PrismAnchorAPI를 써야 하나요?
 PrismAnchorAPI는 BukkitAPI를 보다 쉽게 사용할 수 있도록 만들며, 가독성을 상승시킵니다.
@@ -17,6 +17,8 @@ PrismAnchorAPI는 BukkitAPI를 보다 쉽게 사용할 수 있도록 만들며, 
    `ItemBuilder`, `Minimessage`, `ChatColor`, `DateFormat` 등등 각종 유틸을 제공합니다.
     
 자세한 사항은 위키를 확인 해 주세요
+
+---
 
 # 🔬 Installation
 [![](https://jitpack.io/v/Cupelt/PrismAnchor.svg)](https://jitpack.io/#Cupelt/PrismAnchor)
@@ -49,7 +51,7 @@ dependencies {
 
 <dependency>
     <groupId>com.github.Cupelt</groupId>
-    <artifactId>PrismAnchor</artifactId>
+    <artifactId>PrismAnchorAPI</artifactId>
     <version>{$version}</version>
 </dependency>
 ```
@@ -63,6 +65,8 @@ dependencies {
 2. 새로운 브랜치를 생성하여 기능을 추가하거나 버그를 수정합니다.
 3. 수정한 내용을 커밋한 후, 풀 리퀘스트를 제출합니다.
 4. 풀 리퀘스트의 병합이 승인되었다면 병합합니다.
+
+---
 
 # 🔗 Connect
 궁금한 사항이나 문의가 있을 경우, 이메일로 연락해 주세요: CupeltHub@gmail.com
