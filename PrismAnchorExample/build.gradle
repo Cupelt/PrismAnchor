@@ -1,5 +1,14 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
+}
+
 dependencies {
-    implementation project(":PrismAnchorAPI")
+    shadow project(":PrismAnchorAPI")
+}
+
+jar {
+    enabled = false
+    dependsOn shadowJar
 }
 
 processResources {
@@ -8,5 +17,12 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+    dependencies {
+        exclude(dependency("org.reflections:reflections:.*"))
     }
 }
