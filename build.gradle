@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'maven-publish'
 }
 
 allprojects {
@@ -10,10 +9,10 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'maven-publish'
 
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             name = "papermc-repo"
             url = "https://repo.papermc.io/repository/maven-public/"
@@ -41,17 +40,6 @@ subprojects {
     tasks.withType(JavaCompile).configureEach {
         if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
             options.release = targetJavaVersion
-        }
-    }
-
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId project.group
-                artifactId project.name
-                version project.version
-                from components.java
-            }
         }
     }
 }

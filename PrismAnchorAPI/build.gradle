@@ -1,4 +1,5 @@
 plugins {
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
@@ -14,4 +15,15 @@ jar {
 shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
     archiveClassifier.set('')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            artifact(tasks.shadowJar)
+        }
+    }
 }
