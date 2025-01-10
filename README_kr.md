@@ -59,7 +59,7 @@ dependencies {
 PrismAnchorAPI가 플러그인으로서 작동하기 위해서는, 이 프로젝트를 당신의 플러그인 빌드 결과물에 포함시켜야 합니다.
 
 일반적으로 Gradle의 ShadowJar을 사용하여, FatJar을 생성하는 것을 권장합니다.
-```
+```gradle
 plugins {
     id 'com.github.johnrengelman.shadow'
 }
