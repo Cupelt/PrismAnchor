@@ -1,6 +1,8 @@
-# ✨ PrismAnchorAPI [[kr]](https://github.com/Cupelt/PrismAnchor/blob/master/README_kr.md)
+# ✨ PrismAnchorAPI
 
 **PrismAnchorAPI** is a module designed to enhance productivity and flexibility when working with the Minecraft BukkitAPI. This module simplifies various tasks, improves code maintainability, and boosts development efficiency.
+
+[한국어를 사용하시나요?](https://github.com/Cupelt/PrismAnchor/blob/master/README_kr.md)
 
 ## 🚀 Why Use PrismAnchorAPI?
 
