@@ -60,6 +60,25 @@ dependencies {
 </dependency>
 ```
 
+### Include Build Jar
+PrismAnchorAPI must be included in the build output of your plugin in order for it to function properly.
+
+It is generally recommended to use Gradle's **ShadowJar** to create a **FatJar**.
+```gradle
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+dependencies {
+    ...other Dependencies
+    shadow 'com.github.cupelt:PrismAnchorAPI:{$version}'
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+}
+```
+
 # 🛠️ Contribute
 
 If you've made it this far, it means you're interested in contributing to this project!
