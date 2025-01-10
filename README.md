@@ -21,7 +21,7 @@ PrismAnchorAPI makes working with the Bukkit API easier and improves code readab
 3. **Utility Tools**  
    Includes utilities like `ItemBuilder`, `MiniMessage`, `ChatColor`, `DateFormat`, and more.
 
-For more details, please check the [Wiki](#).
+For more details, please check the [Wiki](https://github.com/Cupelt/PrismAnchor/wiki).
 
 ---
 
