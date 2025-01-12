@@ -4,7 +4,7 @@ import org.cupelt.prismanchor.AbstractPlugin;
 
 public final class PrismAnchorExample extends AbstractPlugin<PrismAnchorExample> {
     @Override
-    public void initPlugin() {
+    public void onEnable() {
         getLogger().info("Plugin allowed!");
     }
 }
