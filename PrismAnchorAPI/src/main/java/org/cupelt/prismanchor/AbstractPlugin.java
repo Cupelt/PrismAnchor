@@ -19,8 +19,10 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     @Override
     public void onLoad() {
         LOGGER = getLogger();
-        instance = this;
         INSTANCE = this;
+
+        this.saveDefaultConfig();
+        config = getConfig();
 
         new ReflectionInitializer<>(Listener.class, this)
                 .reflectionForEach(listener -> {
@@ -34,7 +36,6 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
                 });
     }
 
-    public abstract void initPlugin();
 
     public static <T extends AbstractPlugin<T>> T getInstance() {
         return (T) INSTANCE;
