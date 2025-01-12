@@ -14,12 +14,13 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public static FileConfiguration config;
     public static Logger LOGGER;
 
-    private static AbstractPlugin<?> instance;
+    private static AbstractPlugin<?> INSTANCE;
 
     @Override
     public void onLoad() {
         LOGGER = getLogger();
         instance = this;
+        INSTANCE = this;
 
         new ReflectionInitializer<>(Listener.class, this)
                 .reflectionForEach(listener -> {
@@ -36,6 +37,6 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public abstract void initPlugin();
 
     public static <T extends AbstractPlugin<T>> T getInstance() {
-        return (T) instance;
+        return (T) INSTANCE;
     }
 }
