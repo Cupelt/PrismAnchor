@@ -17,7 +17,9 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     private static AbstractPlugin<?> INSTANCE;
 
     @Override
-    public void onLoad() {
+    public void onEnable() {
+        onBeforeRegister();
+
         LOGGER = getLogger();
         INSTANCE = this;
 
@@ -36,7 +38,19 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
                     CommandBuilder options = command.getCommandOptions();
                     getCommand(options.getName()).setExecutor(command);
                 });
+
+        onPluginEnable();
     }
+
+    @Override
+    public void onDisable() {
+        onPluginDisable();
+    }
+
+    public abstract void onPluginEnable();
+    public abstract void onPluginDisable();
+
+    public void onBeforeRegister() {}
 
     public String getPrefix() {
         return "<gold>[ <red>"+getInstance().getName()+"</red> ]";
