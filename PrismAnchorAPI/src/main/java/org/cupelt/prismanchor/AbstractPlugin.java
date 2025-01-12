@@ -17,7 +17,7 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     private static AbstractPlugin<?> instance;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         LOGGER = getLogger();
         instance = this;
 
