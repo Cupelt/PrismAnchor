@@ -21,8 +21,10 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
         LOGGER = getLogger();
         INSTANCE = this;
 
-        this.saveDefaultConfig();
-        config = getConfig();
+        try {
+            this.saveDefaultConfig();
+            config = getConfig();
+        } catch(IllegalArgumentException ignore) {}
 
         new ReflectionInitializer<>(Listener.class, this)
                 .reflectionForEach(listener -> {
