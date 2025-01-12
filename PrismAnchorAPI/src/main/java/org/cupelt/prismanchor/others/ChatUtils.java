@@ -5,6 +5,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.cupelt.prismanchor.AbstractPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,10 @@ public class ChatUtils {
             comp = comp.appendNewline();
         }
         player.sendMessage(comp);
+    }
+
+    public static Component minimessage(String format, AbstractPlugin plugin) {
+        return MiniMessage.miniMessage().deserialize((plugin != null ? plugin.getPrefix() : "") + " " + format);
     }
 
     public static Component minimessage(String format) {

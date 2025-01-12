@@ -36,6 +36,9 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
                 });
     }
 
+    public String getPrefix() {
+        return "<gold>[ <red>"+getInstance().getName()+"</red> ]";
+    }
 
     public static <T extends AbstractPlugin<T>> T getInstance() {
         return (T) INSTANCE;
