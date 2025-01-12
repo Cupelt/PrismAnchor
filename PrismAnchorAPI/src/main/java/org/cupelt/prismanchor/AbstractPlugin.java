@@ -31,8 +31,6 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
                     CommandBuilder options = command.getCommandOptions();
                     getCommand(options.getName()).setExecutor(command);
                 });
-
-        initPlugin();
     }
 
     public abstract void initPlugin();
