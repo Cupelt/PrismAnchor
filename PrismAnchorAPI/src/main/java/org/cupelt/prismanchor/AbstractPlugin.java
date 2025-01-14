@@ -23,21 +23,27 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
         LOGGER = getLogger();
         INSTANCE = this;
 
-        try {
-            this.saveDefaultConfig();
-            config = getConfig();
-        } catch(IllegalArgumentException ignore) {}
+        if (useDefaultConfig()) {
+            try {
+                this.saveDefaultConfig();
+                config = getConfig();
+            } catch(IllegalArgumentException ignore) {}
+        }
 
-        new ReflectionInitializer<>(Listener.class, this)
-                .reflectionForEach(listener -> {
-                    getServer().getPluginManager().registerEvents(listener, this);
-                });
+        if (useAutoEventRegister()) {
+            new ReflectionInitializer<>(Listener.class, this)
+                    .reflectionForEach(listener -> {
+                        getServer().getPluginManager().registerEvents(listener, this);
+                    });
+        }
 
-        new ReflectionInitializer<>(AbstractCommand.class, this)
-                .reflectionForEach(command -> {
-                    CommandBuilder options = command.getCommandOptions();
-                    getCommand(options.getName()).setExecutor(command);
-                });
+        if (useAutoCommandRegister()) {
+            new ReflectionInitializer<>(AbstractCommand.class, this)
+                    .reflectionForEach(command -> {
+                        CommandBuilder options = command.getCommandOptions();
+                        getCommand(options.getName()).setExecutor(command);
+                    });
+        }
 
         onPluginEnable();
     }
@@ -51,6 +57,16 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public abstract void onPluginDisable();
 
     public void onBeforeRegister() {}
+
+    public boolean useDefaultConfig() {
+        return true;
+    }
+    public boolean useAutoEventRegister() {
+        return true;
+    }
+    public boolean useAutoCommandRegister() {
+        return true;
+    }
 
     public String getPrefix() {
         return "<gold>[ <red>"+getInstance().getName()+"</red> ]";
