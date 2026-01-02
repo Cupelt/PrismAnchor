@@ -1,27 +1,23 @@
 package org.cupelt.prismanchor;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.command.CommandBuilder;
-import org.cupelt.prismanchor.others.ReflectionInitializer;
+import org.cupelt.prismanchor.module.PluginModule;
 
-import java.util.logging.Logger;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPlugin {
 
     public static FileConfiguration config;
-    public static Logger LOGGER;
 
-    private static AbstractPlugin<?> INSTANCE;
+    public static Injector injector;
 
     @Override
     public void onEnable() {
         onBeforeRegister();
-
-        LOGGER = getLogger();
-        INSTANCE = this;
 
         if (useDefaultConfig()) {
             try {
@@ -30,20 +26,7 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
             } catch(IllegalArgumentException ignore) {}
         }
 
-        if (useAutoEventRegister()) {
-            new ReflectionInitializer<>(Listener.class, this)
-                    .reflectionForEach(listener -> {
-                        getServer().getPluginManager().registerEvents(listener, this);
-                    });
-        }
-
-        if (useAutoCommandRegister()) {
-            new ReflectionInitializer<>(AbstractCommand.class, this)
-                    .reflectionForEach(command -> {
-                        CommandBuilder options = command.getCommandOptions();
-                        getCommand(options.getName()).setExecutor(command);
-                    });
-        }
+        this.injector = Guice.createInjector(new PluginModule(this, this.getLogger()));
 
         onPluginEnable();
     }
@@ -51,6 +34,11 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     @Override
     public void onDisable() {
         onPluginDisable();
+    }
+
+    public void registerCommand(AbstractCommand command) {
+        CommandBuilder options = command.getCommandOptions();
+        getCommand(options.getName()).setExecutor(command);
     }
 
     public abstract void onPluginEnable();
@@ -61,18 +49,12 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public boolean useDefaultConfig() {
         return true;
     }
-    public boolean useAutoEventRegister() {
-        return true;
-    }
-    public boolean useAutoCommandRegister() {
-        return true;
-    }
 
+    /***
+     * Implemntable
+     * @return
+     */
     public String getPrefix() {
-        return "<gold>[ <red>"+getInstance().getName()+"</red> ]";
-    }
-
-    public static <T extends AbstractPlugin<T>> T getInstance() {
-        return (T) INSTANCE;
+        return "<gold>[ <red>"+this.getName()+"</red> ]";
     }
 }

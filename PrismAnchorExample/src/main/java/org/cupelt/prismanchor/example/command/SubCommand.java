@@ -8,6 +8,8 @@ import org.cupelt.prismanchor.command.CommandTabCompleter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SubCommand implements CommandPerformer, CommandTabCompleter {
     @Override
@@ -17,6 +19,6 @@ public class SubCommand implements CommandPerformer, CommandTabCompleter {
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
-        return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
     }
 }
