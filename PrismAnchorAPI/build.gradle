@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation "com.google.inject:guice:7.0.0"
+    implementation "com.google.inject:guice:7.0.0:no_aop"
     implementation "org.reflections:reflections:0.9.11"
 }
 
@@ -16,9 +16,9 @@ jar {
 shadowJar {
     archiveClassifier.set('')
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
-    relocate 'com.google.inject', 'org.cupelt.prismanchor.guice'
-    relocate 'org.aopalliance', 'org.cupelt.prismanchor.aopalliance'
-    relocate 'javax.inject', 'org.cupelt.prismanchor.javaxinject'
+    // relocate 'com.google.inject', 'org.cupelt.prismanchor.guice'
+    // relocate 'org.aopalliance', 'org.cupelt.prismanchor.aopalliance'
+    // relocate 'javax.inject', 'org.cupelt.prismanchor.javaxinject'
 }
 
 publishing {
