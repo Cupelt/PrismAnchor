@@ -2,6 +2,7 @@ package org.cupelt.prismanchor;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.cupelt.prismanchor.autoregister.AutoRegisterLoader;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.command.CommandBuilder;
 import org.cupelt.prismanchor.inject.PluginModule;
@@ -30,6 +31,7 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
         }
 
         this.injector = Guice.createInjector(new PluginModule(this, this.getLogger()));
+        new AutoRegisterLoader().initialize();
 
         onPluginEnable();
     }
