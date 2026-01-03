@@ -1,6 +1,8 @@
-package org.cupelt.prismanchor.others;
+package org.cupelt.prismanchor.autoloader;
 
-import org.cupelt.prismanchor.AbstractPlugin;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 import org.reflections.util.ConfigurationBuilder;
 
@@ -10,11 +12,15 @@ import java.util.function.Consumer;
 public class ReflectionInitializer<T> {
 
     private final Class<T> type;
-    private final AbstractPlugin plugin;
 
-    public ReflectionInitializer(Class<T> type, AbstractPlugin plugin) {
+    @Inject
+    private JavaPlugin plugin;
+
+    @Inject
+    private Injector injector;
+
+    public ReflectionInitializer(Class<T> type) {
         this.type = type;
-        this.plugin = plugin;
     }
 
     public void reflectionForEach(Consumer<T> initializer) {
@@ -24,7 +30,7 @@ public class ReflectionInitializer<T> {
 
         for (Class<? extends T> clazz : eventClasses) {
             try {
-                T instance = clazz.getDeclaredConstructor().newInstance();
+                T instance = injector.getInstance(clazz);
                 initializer.accept(instance);
             } catch (Exception e) {
                 e.printStackTrace();

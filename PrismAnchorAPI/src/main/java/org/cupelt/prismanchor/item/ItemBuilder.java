@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.cupelt.prismanchor.others.ChatUtils;
+import org.cupelt.prismanchor.utils.ChatUtils;
 
 import java.util.ArrayList;
 import java.util.List;

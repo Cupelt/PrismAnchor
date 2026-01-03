@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
-import org.cupelt.prismanchor.others.ChatUtils;
+import org.cupelt.prismanchor.utils.ChatUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
