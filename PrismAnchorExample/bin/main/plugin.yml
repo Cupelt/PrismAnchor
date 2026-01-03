@@ -1,0 +1,9 @@
+name: PrismAnchorExample
+version: '${version}'
+main: org.cupelt.prismanchor.example.PrismAnchorExample
+api-version: '1.20'
+
+commands:
+  test:
+    usage: /<command>
+    description: test

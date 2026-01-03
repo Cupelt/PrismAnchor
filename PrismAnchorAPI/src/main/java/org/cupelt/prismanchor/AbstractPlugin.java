@@ -30,13 +30,7 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
             } catch(IllegalArgumentException ignore) {}
         }
 
-        try {
-            Injector injector = Guice.createInjector(new PluginModule(this));
-        } catch (Throwable t) {
-            // Guice의 화려한 에러 출력을 피하고 핵심 원인만 찍기
-            t.printStackTrace(); 
-            getLogger().severe("Guice 초기화 중 진짜 에러: " + t.getMessage());
-        }
+        Injector injector = Guice.createInjector(new PluginModule(this));
         new AutoRegisterLoader().initialize();
 
         onPluginEnable();
