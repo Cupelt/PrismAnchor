@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.command.CommandBuilder;
-import org.cupelt.prismanchor.module.PluginModule;
+import org.cupelt.prismanchor.inject.PluginModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

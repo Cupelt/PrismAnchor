@@ -1,10 +1,12 @@
 package org.cupelt.prismanchor.example.command;
 
 import org.bukkit.command.CommandSender;
+import org.cupelt.prismanchor.autoregister.AutoRegister;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.command.CommandBuilder;
 import org.cupelt.prismanchor.command.CommandPerformer;
 
+@AutoRegister(registerType=AutoRegister.RegisterType.COMMAND)
 public class Command extends AbstractCommand implements CommandPerformer{
     @Override
     public CommandBuilder getCommandOptions() {
