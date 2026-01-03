@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation "com.google.inject:guice:7.0.0:no_aop"
+    implementation "com.google.inject:guice:7.0.0"
     implementation "org.reflections:reflections:0.9.11"
 }
 
