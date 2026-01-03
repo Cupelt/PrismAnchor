@@ -14,9 +14,12 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public static FileConfiguration config;
 
     public static Injector injector;
+    public ClassLoader classLoader;
 
     @Override
     public void onEnable() {
+        this.classLoader = getClassLoader();
+
         onBeforeRegister();
 
         if (useDefaultConfig()) {
