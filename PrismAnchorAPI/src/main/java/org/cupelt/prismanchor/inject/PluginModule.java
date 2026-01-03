@@ -10,12 +10,10 @@ import com.google.inject.AbstractModule;
 
 public class PluginModule extends AbstractModule {
 
-    private AbstractPlugin plugin;
-    private Logger logger;
+    private final AbstractPlugin plugin;
 
-    public PluginModule(AbstractPlugin plugin, Logger logger) {
+    public PluginModule(AbstractPlugin plugin) {
         this.plugin = plugin;
-        this.logger = logger;
     }
     
     @Override
@@ -24,6 +22,6 @@ public class PluginModule extends AbstractModule {
         bind(JavaPlugin.class).toInstance(this.plugin);
         bind(ClassLoader.class).toInstance(this.plugin.classLoader);
 
-        bind(Logger.class).toInstance(this.logger);
+        bind(Logger.class).toInstance(this.plugin.getLogger());
     }
 }
