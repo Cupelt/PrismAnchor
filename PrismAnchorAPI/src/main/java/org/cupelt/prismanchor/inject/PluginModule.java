@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.AbstractPlugin;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 
 public class PluginModule extends AbstractModule {
 
@@ -22,6 +23,8 @@ public class PluginModule extends AbstractModule {
         bind(JavaPlugin.class).toInstance(this.plugin);
         bind(ClassLoader.class).toInstance(this.plugin.classLoader);
 
-        bind(Logger.class).toInstance(this.plugin.getLogger());
+        bind(Logger.class)
+            .annotatedWith(Names.named("pluginLogger"))
+            .toInstance(this.plugin.getLogger());
     }
 }
