@@ -1,4 +1,4 @@
-package org.cupelt.prismanchor.item;
+package org.cupelt.prismanchor.utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

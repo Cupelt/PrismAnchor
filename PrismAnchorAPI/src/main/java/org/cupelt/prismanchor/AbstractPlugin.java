@@ -1,18 +1,16 @@
 package org.cupelt.prismanchor;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.autoloader.AutoLoader;
 import org.cupelt.prismanchor.module.PluginModule;
 
-import java.util.logging.Logger;
-
 public abstract class AbstractPlugin extends JavaPlugin {
 
     public static FileConfiguration config;
+    private static Injector injector;
 
     @Override
     public void onEnable() {
@@ -29,6 +27,8 @@ public abstract class AbstractPlugin extends JavaPlugin {
         AutoLoader loader = injector.getInstance(AutoLoader.class);
 
         loader.initialize();
+
+        AbstractPlugin.injector = injector;
 
         onPluginEnable();
     }
@@ -49,5 +49,12 @@ public abstract class AbstractPlugin extends JavaPlugin {
 
     public String getPrefix() {
         return "<gold>[ <red>"+this.getName()+"</red> ]";
+    }
+
+    public static Injector getInjector() {
+        if (injector == null) {
+            throw new RuntimeException("Injector is not initialized!");
+        }
+        return injector;
     }
 }

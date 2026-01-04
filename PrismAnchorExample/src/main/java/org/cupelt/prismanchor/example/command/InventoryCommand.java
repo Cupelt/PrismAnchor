@@ -3,11 +3,13 @@ package org.cupelt.prismanchor.example.command;
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.CommandPerformer;
 import org.cupelt.prismanchor.example.inventory.CustomInventory;
 
 public class InventoryCommand implements CommandPerformer {
     @Inject
+    private JavaPlugin plugin;
 
 
     @Override
@@ -16,6 +18,6 @@ public class InventoryCommand implements CommandPerformer {
             return;
         }
 
-        player.openInventory(new CustomInventory().getInventory());
+        player.openInventory(new CustomInventory(plugin).getInventory());
     }
 }

@@ -10,13 +10,13 @@ import java.util.*;
 
 public class CommandBuilder {
 
-    protected String name;
+    protected final String name;
     protected String description;
 
     protected String permission;
     protected boolean isAutoTabGenerate = true;
 
-    protected Class<? extends CommandPerformer> performer;
+    protected final Class<? extends CommandPerformer> performer;
     protected Class<? extends CommandTabCompleter> tabCompletion;
 
     protected Set<CommandBuilder> subCommands = new HashSet<>();
@@ -24,19 +24,21 @@ public class CommandBuilder {
     @Inject
     private Injector injector;
 
-    public CommandBuilder() {}
-
-    public CommandBuilder setName(String name) {
+    public CommandBuilder(String name, Class<? extends CommandPerformer> performer) {
         this.name = name;
-        return this;
+        this.performer = performer;
     }
 
     public String getName() {
         return name;
     }
 
-    public CommandBuilder setPerformer(Class<? extends CommandPerformer> performer) {
-        this.performer = performer;
+    public String getDescription() {
+        return this.description;
+    }
+
+    public CommandBuilder setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -56,6 +58,7 @@ public class CommandBuilder {
     }
 
     public CommandBuilder addSubCommand(CommandBuilder subCommand) {
+        injector.injectMembers(subCommand);
         this.subCommands.add(subCommand);
         return this;
     }
@@ -95,7 +98,7 @@ public class CommandBuilder {
         }
     }
 
-    private List<String> getAutoGenerateTab(CommandSender sender, String[] args) {
+    public List<String> getAutoGenerateTab(CommandSender sender, String[] args) {
         List<CommandBuilder> tabs = subCommands.stream()
                 .filter(option -> option.permission == null || sender.hasPermission(option.permission))
                 .toList();
