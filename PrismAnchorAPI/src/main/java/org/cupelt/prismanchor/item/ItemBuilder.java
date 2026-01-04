@@ -21,19 +21,17 @@ public class ItemBuilder {
     private final ItemStack item;
     private final ItemMeta meta;
 
-    public ItemBuilder(Material material) {
-        this.item = new ItemStack(material);
-        this.meta = item.getItemMeta();
-    }
-
-    public ItemBuilder(Material material, int amount) {
-        this.item = new ItemStack(material, amount);
-        this.meta = item.getItemMeta();
-    }
-
     public ItemBuilder(ItemStack itemstack) {
         this.item = itemstack;
         this.meta = item.getItemMeta();
+    }
+
+    public ItemBuilder(Material material) {
+        this(new ItemStack(material));
+    }
+
+    public ItemBuilder(Material material, int amount) {
+        this(new ItemStack(material, amount));
     }
 
     public ItemStack build() {

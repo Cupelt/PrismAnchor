@@ -10,11 +10,9 @@ import org.cupelt.prismanchor.module.PluginModule;
 
 import java.util.logging.Logger;
 
-public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPlugin {
+public abstract class AbstractPlugin extends JavaPlugin {
 
     public static FileConfiguration config;
-
-    @Inject AutoLoader loader;
 
     @Override
     public void onEnable() {
@@ -28,7 +26,7 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
         }
 
         Injector injector = Guice.createInjector(new PluginModule(this));
-        injector.injectMembers(this);
+        AutoLoader loader = injector.getInstance(AutoLoader.class);
 
         loader.initialize();
 

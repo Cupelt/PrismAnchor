@@ -1,4 +1,4 @@
-package org.cupelt.prismanchor.autoloader;
+package org.cupelt.prismanchor.utils;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

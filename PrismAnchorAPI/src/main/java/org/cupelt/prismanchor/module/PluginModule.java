@@ -22,6 +22,8 @@ public class PluginModule extends AbstractModule {
         bind(Plugin.class).toInstance(this.plugin);
         bind(JavaPlugin.class).toInstance(this.plugin);
 
+        install(new AutoLoaderModule());
+
         bind(Logger.class)
                 .annotatedWith(Names.named("pluginLogger"))
                 .toInstance(this.plugin.getLogger());

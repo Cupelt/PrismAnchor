@@ -1,5 +1,7 @@
 package org.cupelt.prismanchor.command;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.exception.NotHavePermissionException;
@@ -18,6 +20,9 @@ public class CommandBuilder {
     protected Class<? extends CommandTabCompleter> tabCompletion;
 
     protected Set<CommandBuilder> subCommands = new HashSet<>();
+
+    @Inject
+    private Injector injector;
 
     public CommandBuilder() {}
 
@@ -81,7 +86,7 @@ public class CommandBuilder {
                 throw new NotHavePermissionException();
             }
 
-            CommandPerformer command = performer.getConstructor().newInstance();
+            CommandPerformer command = injector.getInstance(performer);
             command.perform(sender, args);
         } catch (NotHavePermissionException e) {
             sender.sendMessage(Bukkit.permissionMessage());
@@ -114,7 +119,7 @@ public class CommandBuilder {
         if (args.length == 1) {
             if (tabCompletion != null) {
                 try {
-                    return tabCompletion.getConstructor().newInstance()
+                    return injector.getInstance(tabCompletion)
                             .onTabComplete(sender, args);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
