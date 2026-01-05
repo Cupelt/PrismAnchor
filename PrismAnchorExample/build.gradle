@@ -25,5 +25,6 @@ shadowJar {
     configurations = [project.configurations.shadow]
     dependencies {
         exclude(dependency("org.reflections:reflections:.*"))
+        exclude(dependency("com.google.inject:.*"))
     }
 }
