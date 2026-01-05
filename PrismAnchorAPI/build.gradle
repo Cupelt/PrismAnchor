@@ -15,6 +15,11 @@ jar {
 
 shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
+
+    relocate 'com.google.inject', 'org.cupelt.prismanchor.inject'
+    // relocate 'org.aopalliance', 'org.cupelt.prismanchor.aopalliance'
+    // relocate 'org.checkframework', 'org.cupelt.prismanchor.checkframework'
+    // relocate 'jakarta.inject', 'org.cupelt.prismanchor.jakarta.inject'
     archiveClassifier.set('')
 }
 
