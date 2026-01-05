@@ -23,8 +23,12 @@ public abstract class AbstractPlugin extends JavaPlugin {
             } catch(IllegalArgumentException ignore) {}
         }
 
-        Injector injector = Guice.createInjector(new PluginModule(this));
-        AutoLoader loader = injector.getInstance(AutoLoader.class);
+        try {
+            Injector injector = Guice.createInjector(new PluginModule(this));
+            AutoLoader loader = injector.getInstance(AutoLoader.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         loader.initialize();
 
