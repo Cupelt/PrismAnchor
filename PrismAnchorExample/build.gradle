@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
     shadow project(":PrismAnchorAPI")
-    implementation "com.google.inject:guice:7.0.0"
 }
 
 jar {
