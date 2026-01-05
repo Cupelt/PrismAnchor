@@ -27,7 +27,7 @@ public abstract class AbstractPlugin extends JavaPlugin {
             Injector injector = Guice.createInjector(new PluginModule(this));
             AutoLoader loader = injector.getInstance(AutoLoader.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Injector Error", e);
         }
 
         loader.initialize();
