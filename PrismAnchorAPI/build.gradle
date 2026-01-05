@@ -16,7 +16,7 @@ jar {
 shadowJar {
     relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
 
-    relocate 'com.google.inject', 'org.cupelt.prismanchor.inject'
+    // relocate 'com.google.inject', 'org.cupelt.prismanchor.inject'
     archiveClassifier.set('')
 }
 
