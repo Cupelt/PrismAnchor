@@ -14,13 +14,15 @@ public class ReflectionInitializer<T> {
 
     private final Class<T> type;
     private final JavaPlugin plugin;
+    private final Injector injector;
 
     private final Set<Class<? extends T>> classes;
 
     @Inject
-    public ReflectionInitializer(JavaPlugin plugin, @Assisted Class<T> type) {
+    public ReflectionInitializer(JavaPlugin plugin, Injector injector, @Assisted Class<T> type) {
         this.type = type;
         this.plugin = plugin;
+        this.injector = injector;
 
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .forPackages(plugin.getClass().getPackageName()));
@@ -28,7 +30,7 @@ public class ReflectionInitializer<T> {
     }
 
     public void reflectionForEach(Consumer<T> initializer) {
-        for (Class<? extends T> clazz : eventClasses) {
+        for (Class<? extends T> clazz : this.classes) {
             try {
                 T instance = injector.getInstance(clazz);
                 initializer.accept(instance);
