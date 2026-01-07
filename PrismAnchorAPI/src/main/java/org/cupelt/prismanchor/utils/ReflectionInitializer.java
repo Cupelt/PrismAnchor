@@ -19,15 +19,17 @@ public class ReflectionInitializer<T> {
     @Inject
     private Injector injector;
 
+    private Set<Class<? extends T>> classes;
+
     public ReflectionInitializer(Class<T> type) {
         this.type = type;
+
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .forPackages(plugin.getClass().getPackageName()));
+        this.classes = reflections.getSubTypesOf(type);
     }
 
     public void reflectionForEach(Consumer<T> initializer) {
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .forPackages(plugin.getClass().getPackageName()));
-        Set<Class<? extends T>> eventClasses = reflections.getSubTypesOf(type);
-
         for (Class<? extends T> clazz : eventClasses) {
             try {
                 T instance = injector.getInstance(clazz);
