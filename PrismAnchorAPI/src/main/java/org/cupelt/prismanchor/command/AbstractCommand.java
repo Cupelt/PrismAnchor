@@ -35,6 +35,7 @@ public abstract class AbstractCommand extends Command implements CommandExecutor
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (!(sender instanceof Player)) {
+            sender.sendMessage("passed!!!");
             return true;
         }
 

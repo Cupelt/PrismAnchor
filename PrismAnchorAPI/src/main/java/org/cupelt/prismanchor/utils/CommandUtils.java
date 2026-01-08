@@ -16,9 +16,7 @@ public class CommandUtils {
         CommandBuilder options = command.getCommandOptions();
         injector.injectMembers(command);
 
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            Bukkit.getCommandMap().getKnownCommands().put(options.getName(), command);
-            Bukkit.getServer().getCommandMap().register(plugin.getName(), command);
-        }, 1);
+        // Bukkit.getCommandMap().getKnownCommands().put(options.getName(), command);
+        Bukkit.getServer().getCommandMap().register(plugin.getName(), command);
     }
 }
