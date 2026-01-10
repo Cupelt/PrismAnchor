@@ -2,6 +2,10 @@ package org.cupelt.prismanchor;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.autoloader.AutoLoader;
@@ -15,6 +19,7 @@ public abstract class AbstractPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         onBeforeRegister();
+        Logger.getLogger("org.cupelt.prismanchor.inject.assistedinject.FactoryProvider2").setLevel(Level.SEVERE);
 
         if (useDefaultConfig()) {
             try {
@@ -23,16 +28,12 @@ public abstract class AbstractPlugin extends JavaPlugin {
             } catch(IllegalArgumentException ignore) {}
         }
 
-        try {
-            Injector injector = Guice.createInjector(new PluginModule(this));
-            AutoLoader loader = injector.getInstance(AutoLoader.class);
+        Injector injector = Guice.createInjector(new PluginModule(this));
+        AutoLoader loader = injector.getInstance(AutoLoader.class);
 
-            loader.initialize();
+        loader.initialize();
 
-            AbstractPlugin.injector = injector;    
-        } catch (Exception e) {
-            throw new RuntimeException("Injector Error", e);
-        }
+        AbstractPlugin.injector = injector;
 
         onPluginEnable();
     }

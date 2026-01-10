@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.CommandPerformer;
 import org.cupelt.prismanchor.example.inventory.CustomInventory;
+
 import org.cupelt.prismanchor.inject.Inject;
 
 public class InventoryCommand implements CommandPerformer {

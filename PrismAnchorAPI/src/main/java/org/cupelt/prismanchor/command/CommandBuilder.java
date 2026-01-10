@@ -1,22 +1,36 @@
 package org.cupelt.prismanchor.command;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.exception.NotHavePermissionException;
 
-import java.util.*;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
+@Getter(AccessLevel.PUBLIC)
 public class CommandBuilder {
 
     protected final String name;
-    protected String description;
+    protected String description = "";
 
-    protected String permission;
+    protected List<String> aliases = new ArrayList<>();
+    protected String usage = "";
+
+    protected String permission = "";
     protected boolean isAutoTabGenerate = true;
-
+    
+    @Getter(AccessLevel.PROTECTED)
     protected final Class<? extends CommandPerformer> performer;
+    @Getter(AccessLevel.PROTECTED)
     protected Class<? extends CommandTabCompleter> tabCompletion;
 
     protected Set<CommandBuilder> subCommands = new HashSet<>();
@@ -27,14 +41,6 @@ public class CommandBuilder {
     public CommandBuilder(String name, Class<? extends CommandPerformer> performer) {
         this.name = name;
         this.performer = performer;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return this.description;
     }
 
     public CommandBuilder setDescription(String description) {
@@ -54,6 +60,26 @@ public class CommandBuilder {
 
     public CommandBuilder setPermission(String permission) {
         this.permission = permission;
+        return this;
+    }
+
+    public CommandBuilder setUsage(String usage) {
+        this.usage = usage;
+        return this;
+    }
+
+    public CommandBuilder setAliases(List<String> aliases) {
+        this.aliases = aliases;
+        return this;
+    }
+
+    public CommandBuilder addAliases(String aliases) {
+        this.aliases.add(aliases);
+        return this;
+    }
+
+    public CommandBuilder addAliases(List<String> aliases) {
+        this.aliases.addAll(aliases);
         return this;
     }
 

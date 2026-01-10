@@ -3,11 +3,23 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 dependencies {
-    implementation "org.reflections:reflections:0.9.11"
+    // implementation "org.reflections:reflections:0.9.11"
     
     implementation "com.google.inject:guice:7.0.0"
     implementation 'com.google.inject.extensions:guice-assistedinject:7.0.0'
+
+    compileOnly("org.projectlombok:lombok:1.18.42")
+	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	
+	testCompileOnly("org.projectlombok:lombok:1.18.42")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
 }
 
 jar {
@@ -16,7 +28,7 @@ jar {
 }
 
 shadowJar {
-    relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
+    // relocate 'org.reflections', 'org.cupelt.prismanchor.reflections'
 
     relocate 'com.google.inject', 'org.cupelt.prismanchor.inject'
     archiveClassifier.set('')
@@ -31,4 +43,24 @@ publishing {
             artifact(tasks.shadowJar)
         }
     }
+}
+
+configurations {
+    apiElements.outgoing.artifacts.clear()
+    apiElements.outgoing.artifact(shadowJar)
+
+    runtimeElements.outgoing.artifacts.clear()
+    runtimeElements.outgoing.artifact(shadowJar)
+}
+
+// (선택 사항) 만약 위 설정으로 해결되지 않는다면, 별도의 설정을 명시적으로 만듭니다.
+configurations {
+    shadowed {
+        canBeConsumed = true
+        canBeResolved = false
+    }
+}
+
+artifacts {
+    shadowed shadowJar
 }

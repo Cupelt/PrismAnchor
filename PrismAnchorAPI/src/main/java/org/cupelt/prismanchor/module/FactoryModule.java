@@ -1,7 +1,6 @@
 package org.cupelt.prismanchor.module;
 
 import org.cupelt.prismanchor.module.factory.utils.ReflectionFactory;
-import org.cupelt.prismanchor.utils.ReflectionInitializer;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;

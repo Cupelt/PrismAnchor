@@ -1,5 +1,6 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.1'
+    id 'eclipse'
 }
 
 dependencies {
@@ -7,9 +8,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation project(":PrismAnchorAPI")
-
-    shadow project(":PrismAnchorAPI")
+    annotationProcessor project(":PrismAnchorAPI").sourceSets.main.output
+    compileOnly project(":PrismAnchorAPI")
+    
+    testImplementation project(path: ":PrismAnchorAPI", configuration: 'shadowed')
+    shadow project(path: ":PrismAnchorAPI", configuration: 'shadowed')
 }
 
 test {
@@ -32,6 +35,9 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadow]
+
+    from(sourceSets.main.output)
+
     dependencies {
         exclude(dependency("org.reflections:reflections:.*"))
         exclude(dependency("com.google.inject:.*"))
