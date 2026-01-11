@@ -1,1 +1,2 @@
-org.cupelt.prismanchor.processor.CommandRegisterProcessor
+org.cupelt.prismanchor.autoloader.processor.CommandRegisterProcessor
+org.cupelt.prismanchor.autoloader.processor.EventRegisterProcessor

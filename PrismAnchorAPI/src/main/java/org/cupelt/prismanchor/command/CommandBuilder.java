@@ -9,9 +9,11 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.exception.NotHavePermissionException;
+import org.cupelt.prismanchor.module.factory.command.CommandFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.assistedinject.Assisted;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,12 +37,17 @@ public class CommandBuilder {
 
     protected Set<CommandBuilder> subCommands = new HashSet<>();
 
-    @Inject
-    private Injector injector;
+    private final Injector injector;
 
-    public CommandBuilder(String name, Class<? extends CommandPerformer> performer) {
+    @Inject
+    private static CommandFactory factory;
+
+    @Inject
+    protected CommandBuilder(Injector injector, @Assisted String name, @Assisted Class<? extends CommandPerformer> performer) {
         this.name = name;
         this.performer = performer;
+
+        this.injector = injector;
     }
 
     public CommandBuilder setDescription(String description) {
@@ -84,7 +91,6 @@ public class CommandBuilder {
     }
 
     public CommandBuilder addSubCommand(CommandBuilder subCommand) {
-        injector.injectMembers(subCommand);
         this.subCommands.add(subCommand);
         return this;
     }
@@ -168,6 +174,10 @@ public class CommandBuilder {
             return subCommand.getExecuteTabComplete(sender, Arrays.copyOfRange(args, 1, args.length));
 
         return new ArrayList<>();
+    }
+
+    public static CommandBuilder create(String name, Class<? extends CommandPerformer> performer) {
+        return factory.build(name, performer);
     }
 
 }

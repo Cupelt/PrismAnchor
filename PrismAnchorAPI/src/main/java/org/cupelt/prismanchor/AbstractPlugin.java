@@ -29,11 +29,11 @@ public abstract class AbstractPlugin extends JavaPlugin {
         }
 
         Injector injector = Guice.createInjector(new PluginModule(this));
+        AbstractPlugin.injector = injector;
+
         AutoLoader loader = injector.getInstance(AutoLoader.class);
 
         loader.initialize();
-
-        AbstractPlugin.injector = injector;
 
         onPluginEnable();
     }

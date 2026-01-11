@@ -1,29 +1,35 @@
 package org.cupelt.prismanchor.command;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.cupelt.prismanchor.AbstractPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public abstract class AbstractCommand extends Command {
-    @Inject
     private Injector injector;
     @Inject
     private JavaPlugin plugin;
 
-    protected AbstractCommand() {
+    @Inject
+    public AbstractCommand() {
         super("anonymous_command");
-        setName(getCommandOptions().getName());
-        setLabel(getCommandOptions().getName());
-        setDescription(getCommandOptions().getDescription());
-        setAliases(getCommandOptions().getAliases());
-        setPermission(getCommandOptions().getPermission());
-        setUsage(getCommandOptions().getUsage());
+        this.injector = AbstractPlugin.getInjector();
+
+        CommandBuilder builder = getCommandOptions();
+
+        setName(builder.getName());
+        setLabel(builder.getName());
+        setDescription(builder.getDescription());
+        setAliases(builder.getAliases());
+        setPermission(builder.getPermission());
+        setUsage( builder.getUsage());
     }
 
     public abstract CommandBuilder getCommandOptions();
@@ -31,7 +37,6 @@ public abstract class AbstractCommand extends Command {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Test Passed!!");
             return true;
         }
 

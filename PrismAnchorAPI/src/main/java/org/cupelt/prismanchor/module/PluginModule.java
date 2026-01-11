@@ -22,7 +22,7 @@ public class PluginModule extends AbstractModule {
         bind(Plugin.class).toInstance(this.plugin);
         bind(JavaPlugin.class).toInstance(this.plugin);
 
-        // install(new FactoryModule());
+        install(new FactoryModule());
         install(new AutoLoaderModule());
 
         bind(Logger.class)

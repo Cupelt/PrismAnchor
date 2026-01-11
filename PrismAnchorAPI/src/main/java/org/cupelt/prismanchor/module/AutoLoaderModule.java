@@ -2,7 +2,7 @@ package org.cupelt.prismanchor.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import org.cupelt.prismanchor.autoloader.RegisterType;
+// import org.cupelt.prismanchor.autoloader.RegisterType;
 // import org.cupelt.prismanchor.autoloader.register.CommandRegister;
 // import org.cupelt.prismanchor.autoloader.register.EventRegister;
 // import org.cupelt.prismanchor.autoloader.register.IRegister;
