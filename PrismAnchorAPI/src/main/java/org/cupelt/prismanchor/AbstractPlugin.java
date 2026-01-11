@@ -1,27 +1,25 @@
 package org.cupelt.prismanchor;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.cupelt.prismanchor.command.AbstractCommand;
-import org.cupelt.prismanchor.command.CommandBuilder;
-import org.cupelt.prismanchor.others.ReflectionInitializer;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPlugin {
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.cupelt.prismanchor.autoloader.AutoLoader;
+import org.cupelt.prismanchor.module.PluginModule;
+
+public abstract class AbstractPlugin extends JavaPlugin {
 
     public static FileConfiguration config;
-    public static Logger LOGGER;
-
-    private static AbstractPlugin<?> INSTANCE;
+    private static Injector injector;
 
     @Override
     public void onEnable() {
         onBeforeRegister();
-
-        LOGGER = getLogger();
-        INSTANCE = this;
+        Logger.getLogger("org.cupelt.prismanchor.inject.assistedinject.FactoryProvider2").setLevel(Level.SEVERE);
 
         if (useDefaultConfig()) {
             try {
@@ -30,20 +28,12 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
             } catch(IllegalArgumentException ignore) {}
         }
 
-        if (useAutoEventRegister()) {
-            new ReflectionInitializer<>(Listener.class, this)
-                    .reflectionForEach(listener -> {
-                        getServer().getPluginManager().registerEvents(listener, this);
-                    });
-        }
+        Injector injector = Guice.createInjector(new PluginModule(this));
+        AbstractPlugin.injector = injector;
 
-        if (useAutoCommandRegister()) {
-            new ReflectionInitializer<>(AbstractCommand.class, this)
-                    .reflectionForEach(command -> {
-                        CommandBuilder options = command.getCommandOptions();
-                        getCommand(options.getName()).setExecutor(command);
-                    });
-        }
+        AutoLoader loader = injector.getInstance(AutoLoader.class);
+
+        loader.initialize();
 
         onPluginEnable();
     }
@@ -61,18 +51,15 @@ public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPl
     public boolean useDefaultConfig() {
         return true;
     }
-    public boolean useAutoEventRegister() {
-        return true;
-    }
-    public boolean useAutoCommandRegister() {
-        return true;
-    }
 
     public String getPrefix() {
-        return "<gold>[ <red>"+getInstance().getName()+"</red> ]";
+        return "<gold>[ <red>"+this.getName()+"</red> ]";
     }
 
-    public static <T extends AbstractPlugin<T>> T getInstance() {
-        return (T) INSTANCE;
+    public static Injector getInjector() {
+        if (injector == null) {
+            throw new RuntimeException("Injector is not initialized!");
+        }
+        return injector;
     }
 }

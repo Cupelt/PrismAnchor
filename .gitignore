@@ -91,6 +91,8 @@ fabric.properties
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+*/bin/*
+
 # Package Files #
 *.jar
 *.war
@@ -345,6 +347,7 @@ fabric.properties
 .gradle
 **/build/
 !src/**/build/
+**/bin/
 
 # Ignore Gradle GUI config
 gradle-app.setting

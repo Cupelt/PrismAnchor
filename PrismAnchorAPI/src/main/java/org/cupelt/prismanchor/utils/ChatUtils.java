@@ -1,4 +1,4 @@
-package org.cupelt.prismanchor.others;
+package org.cupelt.prismanchor.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

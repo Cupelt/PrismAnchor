@@ -1,4 +1,4 @@
-package org.cupelt.prismanchor.others;
+package org.cupelt.prismanchor.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

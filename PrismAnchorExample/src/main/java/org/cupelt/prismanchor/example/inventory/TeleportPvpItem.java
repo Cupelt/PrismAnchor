@@ -6,7 +6,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.cupelt.prismanchor.inventory.InventoryItemExecutor;
 import org.cupelt.prismanchor.item.ItemBuilder;
-import org.cupelt.prismanchor.others.ChatUtils;
+import org.cupelt.prismanchor.utils.ChatUtils;
 
 public class TeleportPvpItem extends InventoryItemExecutor<CustomInventory> {
     public TeleportPvpItem(CustomInventory instance) {

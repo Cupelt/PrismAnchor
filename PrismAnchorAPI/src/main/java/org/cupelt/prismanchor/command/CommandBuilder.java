@@ -1,37 +1,57 @@
 package org.cupelt.prismanchor.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.exception.NotHavePermissionException;
+import org.cupelt.prismanchor.module.factory.command.CommandFactory;
 
-import java.util.*;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.assistedinject.Assisted;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
+@Getter(AccessLevel.PUBLIC)
 public class CommandBuilder {
 
-    protected String name;
-    protected String description;
+    protected final String name;
+    protected String description = "";
 
-    protected String permission;
+    protected List<String> aliases = new ArrayList<>();
+    protected String usage = "";
+
+    protected String permission = "";
     protected boolean isAutoTabGenerate = true;
-
-    protected Class<? extends CommandPerformer> performer;
+    
+    @Getter(AccessLevel.PROTECTED)
+    protected final Class<? extends CommandPerformer> performer;
+    @Getter(AccessLevel.PROTECTED)
     protected Class<? extends CommandTabCompleter> tabCompletion;
 
     protected Set<CommandBuilder> subCommands = new HashSet<>();
 
-    public CommandBuilder() {}
+    private final Injector injector;
 
-    public CommandBuilder setName(String name) {
+    @Inject
+    private static CommandFactory factory;
+
+    @Inject
+    protected CommandBuilder(Injector injector, @Assisted String name, @Assisted Class<? extends CommandPerformer> performer) {
         this.name = name;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public CommandBuilder setPerformer(Class<? extends CommandPerformer> performer) {
         this.performer = performer;
+
+        this.injector = injector;
+    }
+
+    public CommandBuilder setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -47,6 +67,26 @@ public class CommandBuilder {
 
     public CommandBuilder setPermission(String permission) {
         this.permission = permission;
+        return this;
+    }
+
+    public CommandBuilder setUsage(String usage) {
+        this.usage = usage;
+        return this;
+    }
+
+    public CommandBuilder setAliases(List<String> aliases) {
+        this.aliases = aliases;
+        return this;
+    }
+
+    public CommandBuilder addAliases(String aliases) {
+        this.aliases.add(aliases);
+        return this;
+    }
+
+    public CommandBuilder addAliases(List<String> aliases) {
+        this.aliases.addAll(aliases);
         return this;
     }
 
@@ -81,7 +121,7 @@ public class CommandBuilder {
                 throw new NotHavePermissionException();
             }
 
-            CommandPerformer command = performer.getConstructor().newInstance();
+            CommandPerformer command = injector.getInstance(performer);
             command.perform(sender, args);
         } catch (NotHavePermissionException e) {
             sender.sendMessage(Bukkit.permissionMessage());
@@ -90,7 +130,7 @@ public class CommandBuilder {
         }
     }
 
-    private List<String> getAutoGenerateTab(CommandSender sender, String[] args) {
+    public List<String> getAutoGenerateTab(CommandSender sender, String[] args) {
         List<CommandBuilder> tabs = subCommands.stream()
                 .filter(option -> option.permission == null || sender.hasPermission(option.permission))
                 .toList();
@@ -114,7 +154,7 @@ public class CommandBuilder {
         if (args.length == 1) {
             if (tabCompletion != null) {
                 try {
-                    return tabCompletion.getConstructor().newInstance()
+                    return injector.getInstance(tabCompletion)
                             .onTabComplete(sender, args);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -134,6 +174,10 @@ public class CommandBuilder {
             return subCommand.getExecuteTabComplete(sender, Arrays.copyOfRange(args, 1, args.length));
 
         return new ArrayList<>();
+    }
+
+    public static CommandBuilder create(String name, Class<? extends CommandPerformer> performer) {
+        return factory.build(name, performer);
     }
 
 }

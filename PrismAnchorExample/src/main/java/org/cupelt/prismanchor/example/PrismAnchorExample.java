@@ -2,7 +2,7 @@ package org.cupelt.prismanchor.example;
 
 import org.cupelt.prismanchor.AbstractPlugin;
 
-public final class PrismAnchorExample extends AbstractPlugin<PrismAnchorExample> {
+public final class PrismAnchorExample extends AbstractPlugin {
 
     @Override
     public void onPluginEnable() {
