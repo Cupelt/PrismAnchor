@@ -3,7 +3,7 @@
 {
   "name": "Java",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/java:0-17",
+  "image": "mcr.microsoft.com/devcontainers/java:0-21",
 
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
@@ -13,16 +13,13 @@
     },
     "ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {},
     "ghcr.io/devcontainers-extra/features/gradle-sdkman:2": {
-      "version": "8.1.1",
-      "jdkVersion": "17"
+      "version": "9.0.0",
+      "jdkVersion": "21"
     }
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "echo \"This file was added by the postCreateCommand.\" > TEMP.md",
 
   // Configure tool-specific properties.
   "customizations": {
