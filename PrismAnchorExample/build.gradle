@@ -1,22 +1,9 @@
-plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.1'
-    id 'eclipse'
-}
-
 dependencies {
-    testImplementation 'com.github.seeseemelk:MockBukkit-v1.20:3.9.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-
-    annotationProcessor project(":PrismAnchorAPI").sourceSets.main.output
+    annotationProcessor project(":PrismAnchorAPI")
     compileOnly project(":PrismAnchorAPI")
     
-    testImplementation project(path: ":PrismAnchorAPI", configuration: 'shadowed')
-    shadow project(path: ":PrismAnchorAPI", configuration: 'shadowed')
-}
-
-test {
-    useJUnitPlatform()
+    testImplementation project(path: ":PrismAnchorAPI")
+    shadow project(path: ":PrismAnchorAPI")
 }
 
 jar {
@@ -33,10 +20,17 @@ processResources {
     }
 }
 
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
 shadowJar {
     configurations = [project.configurations.shadow]
-
-    from(sourceSets.main.output)
 
     dependencies {
         exclude(dependency("org.reflections:reflections:.*"))
