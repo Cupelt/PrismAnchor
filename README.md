@@ -2,7 +2,7 @@
 
 **PrismAnchorAPI** is a module designed to enhance productivity and flexibility when working with the Minecraft BukkitAPI. This module simplifies various tasks, improves code maintainability, and boosts development efficiency.
 
-[한국어를 사용하시나요?](https://github.com/Cupelt/PrismAnchor/blob/master/README_kr.md)
+[한국어를 사용하시나요?](https://github.com/Cupelt/PrismAnchorAPI/blob/master/README_kr.md)
 
 ## 🚀 Why Use PrismAnchorAPI?
 
@@ -21,15 +21,15 @@ PrismAnchorAPI makes working with the Bukkit API easier and improves code readab
 3. **Utility Tools**  
    Includes utilities like `ItemBuilder`, `MiniMessage`, `ChatColor`, `DateFormat`, and more.
 
-For more details, please check the [Wiki](https://github.com/Cupelt/PrismAnchor/wiki).
+For more details, please check the [Wiki](https://github.com/Cupelt/PrismAnchorAPI/wiki).
 
 ---
 
 ## 🔬 Installation
 
-[![](https://jitpack.io/v/Cupelt/PrismAnchor.svg)](https://jitpack.io/#Cupelt/PrismAnchor)  
+[![](https://jitpack.io/v/Cupelt/PrismAnchorAPI.svg)](https://jitpack.io/#Cupelt/PrismAnchorAPI)  
 
-This library is available through JitPack. The latest version can always be found on the [GitHub Releases](https://github.com/Cupelt/PrismAnchor/releases/latest) page.
+This library is available through JitPack. The latest version can always be found on the [GitHub Releases](https://github.com/Cupelt/PrismAnchorAPI/releases/latest) page.
 
 ### Gradle
 
