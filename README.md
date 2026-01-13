@@ -68,7 +68,7 @@ PrismAnchorAPI must be included in the build output of your plugin in order for 
 It is generally recommended to use Gradle's **ShadowJar** to create a **FatJar**.
 ```gradle
 plugins {
-    id 'com.github.johnrengelman.shadow'
+    id 'com.gradleup.shadow'
 }
 
 dependencies {
@@ -76,8 +76,13 @@ dependencies {
     shadow 'com.github.cupelt:PrismAnchorAPI:{$version}'
 }
 
+jar {
+    enabled = false
+    dependsOn shadowJar
+}
+
 shadowJar {
-    configurations = [project.configurations.shadow]
+    relocate 'org.cupelt.prismanchor', project.group + '.prismanchor'
 }
 ```
 
