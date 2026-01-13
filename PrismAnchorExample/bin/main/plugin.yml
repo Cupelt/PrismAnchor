@@ -1,4 +1,0 @@
-name: PrismAnchorExample
-version: '${version}'
-main: org.cupelt.prismanchor.example.PrismAnchorExample
-api-version: '1.20'
