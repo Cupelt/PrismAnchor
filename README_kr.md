@@ -61,7 +61,7 @@ PrismAnchorAPI가 플러그인으로서 작동하기 위해서는, 이 프로젝
 일반적으로 Gradle의 ShadowJar을 사용하여, FatJar을 생성하는 것을 권장합니다.
 ```gradle
 plugins {
-    id 'com.github.johnrengelman.shadow'
+    id 'com.gradleup.shadow'
 }
 
 dependencies {
@@ -69,8 +69,13 @@ dependencies {
     shadow 'com.github.cupelt:PrismAnchorAPI:{$version}'
 }
 
+jar {
+    enabled = false
+    dependsOn shadowJar
+}
+
 shadowJar {
-    configurations = [project.configurations.shadow]
+    relocate 'org.cupelt.prismanchor', project.group + '.prismanchor'
 }
 ```
 
