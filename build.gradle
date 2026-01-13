@@ -1,17 +1,55 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id 'com.gradleup.shadow' version '9.3.0'
 }
 
-allprojects {
-    group = 'org.cupelt.prismanchor'
-    version = findProperty('version') ?: "SNAPSHOT"
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
-subprojects {
+dependencies {
+    // implementation "org.reflections:reflections:0.9.11"
+    
+    implementation "com.google.inject:guice:7.0.0"
+    implementation 'com.google.inject.extensions:guice-assistedinject:7.0.0'
+
+    compileOnly("org.projectlombok:lombok:1.18.42")
+	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	
+	testCompileOnly("org.projectlombok:lombok:1.18.42")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+}
+
+jar {
+    enabled = false
+    dependsOn shadowJar
+}
+
+shadowJar {
+    relocate 'com.google.inject', 'org.cupelt.prismanchor.inject'
+    archiveClassifier.set('')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            artifact(tasks.shadowJar)
+        }
+    }
+}
+
+allprojects {
     apply plugin: 'java'
     apply plugin: 'com.gradleup.shadow'
 
+    group = 'org.cupelt.prismanchor'
+    version = findProperty('version') ?: "SNAPSHOT"
 
     repositories {
         mavenCentral()
