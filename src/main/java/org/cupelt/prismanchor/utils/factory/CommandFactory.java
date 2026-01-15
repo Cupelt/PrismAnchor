@@ -1,4 +1,4 @@
-package org.cupelt.prismanchor.module.factory.command;
+package org.cupelt.prismanchor.utils.factory;
 
 import org.cupelt.prismanchor.command.CommandBuilder;
 import org.cupelt.prismanchor.command.CommandPerformer;
