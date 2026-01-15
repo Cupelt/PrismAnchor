@@ -6,7 +6,6 @@ import com.google.inject.Injector;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.utils.CommandUtils;
-import org.cupelt.prismanchor.utils.ReflectionInitializer;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
