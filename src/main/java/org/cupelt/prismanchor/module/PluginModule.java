@@ -9,11 +9,11 @@ import org.cupelt.prismanchor.AbstractPlugin;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 
-public class PluginModule extends AbstractModule {
+public class PluginModule<T extends AbstractPlugin<T>> extends AbstractModule {
 
-    private final AbstractPlugin plugin;
+    private final T plugin;
 
-    public PluginModule(AbstractPlugin plugin) {
+    public PluginModule(T plugin) {
         this.plugin = plugin;
     }
 
@@ -21,6 +21,7 @@ public class PluginModule extends AbstractModule {
     protected void configure() {
         bind(Plugin.class).toInstance(this.plugin);
         bind(JavaPlugin.class).toInstance(this.plugin);
+        bind((Class<T>) plugin.getClass()).toInstance(this.plugin);
 
         install(new FactoryModule());
         install(new AutoLoaderModule());

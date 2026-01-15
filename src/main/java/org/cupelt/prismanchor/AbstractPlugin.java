@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.autoloader.AutoLoader;
 import org.cupelt.prismanchor.module.PluginModule;
 
-public abstract class AbstractPlugin extends JavaPlugin {
+public abstract class AbstractPlugin<T extends AbstractPlugin<T>> extends JavaPlugin {
 
     public static FileConfiguration config;
     private static Injector injector;
