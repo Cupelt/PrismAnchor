@@ -4,6 +4,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -11,8 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
+import org.cupelt.prismanchor.AbstractPlugin;
 import org.cupelt.prismanchor.utils.ChatUtils;
 import org.jetbrains.annotations.NotNull;
+
+import com.google.inject.Inject;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -21,19 +25,21 @@ import java.util.UUID;
 
 public abstract class AbstractInventory implements InventoryHolder {
 
-    protected final Plugin plugin;
+    @Inject
+    protected Plugin plugin;
 
     protected Inventory inventory;
     protected Map<String, InventoryItemExecutor<? extends AbstractInventory>> EXECUTOR_MAP = new HashMap<>();
     protected final InventoryHolder prevInv;
 
-    public AbstractInventory(@NotNull Plugin plugin, @Nullable InventoryHolder prevInv) {
-        this.plugin = plugin;
+    public AbstractInventory(@Nullable InventoryHolder prevInv) {
         this.prevInv = prevInv;
+
+        AbstractPlugin.getInjector().injectMembers(this);
     }
 
-    public AbstractInventory(@NotNull Plugin plugin) {
-        this(plugin, null);
+    public AbstractInventory() {
+        this(null);
     }
 
     @Override
@@ -41,9 +47,7 @@ public abstract class AbstractInventory implements InventoryHolder {
         if (inventory == null) {
             this.inventory = Bukkit.createInventory(
                     this, getInventorySize().getSize(),
-                    LegacyComponentSerializer.legacySection().serialize(
-                            ChatUtils.minimessage(ChatUtils.ColorStringToMiniMessage(getTitle()))
-                    )
+                    ChatUtils.minimessage(ChatUtils.ColorStringToMiniMessage(getTitle()))
             );
             initialize();
         }
@@ -96,6 +100,10 @@ public abstract class AbstractInventory implements InventoryHolder {
                         ChatUtils.minimessage(title)
                 )
         );
+    }
+
+    public void openInventory(Player player) {
+        player.openInventory(getInventory());
     }
 
     /**
