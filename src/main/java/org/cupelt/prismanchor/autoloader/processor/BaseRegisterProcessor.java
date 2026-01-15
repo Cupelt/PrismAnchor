@@ -27,7 +27,6 @@ public abstract class BaseRegisterProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) return false;
 
-        // 2. 스캔 대상 어노테이션이 발견되었는지 확인
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(getAnnotationClass());
         Set<? extends Element> components = roundEnv.getElementsAnnotatedWith(Component.class);
 
@@ -50,7 +49,6 @@ public abstract class BaseRegisterProcessor extends AbstractProcessor {
                             className = typeElement.getQualifiedName().toString();
                         }
                         else {
-                            // 어노테이션의 value 값을 가져와 파일명으로 사용 (예: @Component("auth") -> auth)
                             componentName = getComponentName(typeElement.getAnnotation(Component.class)); 
                             className = typeElement.getQualifiedName().toString();
                         }
@@ -60,69 +58,13 @@ public abstract class BaseRegisterProcessor extends AbstractProcessor {
                 }
             }
         } catch (IOException e) {
-            // 오류 발생 시 중단되지 않도록 경고만 출력
             processingEnv.getMessager().printMessage(Kind.WARNING, "Failed to create resource: " + e.getMessage());
         }
         return true;
     }
 
-
-    // @Override
-    // public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-    //     if (roundEnv.processingOver()) return false;
-// 
-    //     Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(getAnnotationClass());
-    //     Set<? extends Element> components = roundEnv.getElementsAnnotatedWith(Component.class);
-    //     if (elements.isEmpty()) return false;
-// 
-    //     // <ComponentName, List<elements>>
-    //     Map<String, List<String>> groupedElements = new HashMap<>();
-// 
-    //     for (Element element : elements) {
-    //         if (element instanceof TypeElement typeElement) {
-    //             String fileName;
-    //             String className;
-// 
-    //             if (!components.contains(element)) {
-    //                 fileName = "default";
-    //                 className = typeElement.getQualifiedName().toString();
-    //             }
-    //             else {
-    //                 // 어노테이션의 value 값을 가져와 파일명으로 사용 (예: @Component("auth") -> auth)
-    //                 fileName = getComponentName(typeElement); 
-    //                 className = typeElement.getQualifiedName().toString();
-    //             }
-// 
-    //             groupedElements.computeIfAbsent(fileName, k -> new ArrayList<>()).add(className);
-    //         }
-    //     }
-// 
-    //     // 2. 그룹화된 각 파일명마다 개별 리소스 파일을 생성합니다.
-    //     groupedElements.forEach((componentName, classNames) -> {
-    //         try {
-    //             FileObject resource = processingEnv.getFiler().createResource(
-    //                 StandardLocation.CLASS_OUTPUT, 
-    //                 "", 
-    //                 "META-INF/prismanchor/" + componentName + "/" + getIdentifier() + ".list"
-    //             );
-// 
-    //             try (PrintWriter writer = new PrintWriter(resource.openWriter())) {
-    //                 for (String className : classNames) {
-    //                     writer.println(className);
-    //                 }
-    //             }
-    //         } catch (IOException e) {
-    //             processingEnv.getMessager().printMessage(Kind.WARNING, "Failed to create resource for " + componentName + ": " + e.getMessage());
-    //         }
-    //     });
-// 
-    //     return true;
-    // }
-
-    // 어노테이션에서 이름을 추출하는 헬퍼 메소드
     protected String getComponentName(Annotation annotation) {
         if (annotation instanceof Component component) {
-            // @Component("worker") 에서 "worker"를 추출
             String value = component.value();
             return (value == null || value.isBlank()) ? "default" : value;
         }

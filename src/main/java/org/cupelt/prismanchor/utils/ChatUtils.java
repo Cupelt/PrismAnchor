@@ -42,36 +42,6 @@ public class ChatUtils {
     }
 
     public static String ColorStringToMiniMessage(String colorString) {
-//        Map<String, String> colorMap = new HashMap<>();
-//        colorMap.put("(&|§)0", "<black>");
-//        colorMap.put("(&|§)1", "<dark_blue>");
-//        colorMap.put("(&|§)2", "<dark_green>");
-//        colorMap.put("(&|§)3", "<dark_aqua>");
-//        colorMap.put("(&|§)4", "<dark_red>");
-//        colorMap.put("(&|§)5", "<dark_purple>");
-//        colorMap.put("(&|§)6", "<gold>");
-//        colorMap.put("(&|§)7", "<gray>");
-//        colorMap.put("(&|§)8", "<dark_gray>");
-//        colorMap.put("(&|§)9", "<blue>");
-//        colorMap.put("(&|§)a", "<green>");
-//        colorMap.put("(&|§)b", "<aqua>");
-//        colorMap.put("(&|§)c", "<red>");
-//        colorMap.put("(&|§)d", "<light_purple>");
-//        colorMap.put("(&|§)e", "<yellow>");
-//        colorMap.put("(&|§)f", "<white>");
-//        colorMap.put("(&|§)k", "<obf>");
-//        colorMap.put("(&|§)l", "<b>");
-//        colorMap.put("(&|§)m", "<st>");
-//        colorMap.put("(&|§)n", "<u>");
-//        colorMap.put("(&|§)o", "<i>");
-//        colorMap.put("(&|§)r", "<reset>");
-//
-//        for (Map.Entry<String, String> entry : colorMap.entrySet()) {
-//            colorString = colorString.replaceAll(entry.getKey(), entry.getValue());
-//        }
-//
-//        colorString = colorString.replaceAll("&#([0-9a-fA-F]{6})", "<#$1>");
-
         Component component = LegacyComponentSerializer.legacySection().deserialize(colorString);
         colorString = MiniMessage.miniMessage().serialize(component);
 

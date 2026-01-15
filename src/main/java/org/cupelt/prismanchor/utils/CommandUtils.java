@@ -26,20 +26,8 @@ public class CommandUtils {
     private static Logger logger;
 
 
-    // 원래 커맨드
+    // origin commands
     private static final Map<String, Command> overridens = new HashMap<>();
-
-    // public static void register(AbstractCommand command) {
-
-    //     Injector injector = AbstractPlugin.getInjector();
-    //     JavaPlugin plugin = injector.getInstance(JavaPlugin.class);
-
-    //     CommandBuilder options = command.getCommandOptions();
-    //     injector.injectMembers(command);
-
-    //     // Bukkit.getCommandMap().getKnownCommands().put(options.getName(), command);
-    //     Bukkit.getServer().getCommandMap().register(plugin.getName(), command);
-    // }
 
     public static void register(AbstractCommand command) {
         Injector injector = AbstractPlugin.getInjector();
@@ -49,11 +37,6 @@ public class CommandUtils {
 
         CommandBuilder options = command.getCommandOptions();
         logger.info("registering '"+ options.getName() +"' command...");
-        // getCommandMap().register(options.getName(), command);
-
-        // plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-        //     commands.registrar().register(options.getName(), command);
-        // });
 
         Map<String, Command> rawCommandMap = getCommandMap();
 
