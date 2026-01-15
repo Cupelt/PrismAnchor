@@ -1,7 +1,7 @@
 package org.cupelt.prismanchor.module;
 
 import org.cupelt.prismanchor.command.CommandBuilder;
-import org.cupelt.prismanchor.module.factory.command.CommandFactory;
+import org.cupelt.prismanchor.utils.factory.CommandFactory;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;

@@ -6,7 +6,7 @@ import org.cupelt.prismanchor.autoloader.annotation.Component;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.command.CommandBuilder;
 import org.cupelt.prismanchor.command.CommandPerformer;
-import org.cupelt.prismanchor.module.factory.command.CommandFactory;
+import org.cupelt.prismanchor.utils.factory.CommandFactory;
 
 @Component("example")
 @CommandRegister

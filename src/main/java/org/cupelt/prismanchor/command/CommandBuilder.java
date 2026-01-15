@@ -9,7 +9,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.cupelt.prismanchor.exception.NotHavePermissionException;
-import org.cupelt.prismanchor.module.factory.command.CommandFactory;
+import org.cupelt.prismanchor.utils.factory.CommandFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
