@@ -3,6 +3,8 @@ package org.cupelt.prismanchor.autoloader;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cupelt.prismanchor.command.AbstractCommand;
 import org.cupelt.prismanchor.utils.CommandUtils;
@@ -37,6 +39,16 @@ public class AutoLoader {
             commandSet.forEach(clazz -> {
                 AbstractCommand command = injector.getInstance(clazz);
                 CommandUtils.register(command);
+            });
+        });
+
+        Map<String, Set<Class<? extends Listener>>> events = loadMETAData("events", Listener.class);
+        events.forEach((componentName, eventSet) -> {
+            // when component is disable then continue
+
+            eventSet.forEach(clazz -> {
+                Listener listener = injector.getInstance(clazz);
+                Bukkit.getPluginManager().registerEvents(listener, plugin);
             });
         });
     }
