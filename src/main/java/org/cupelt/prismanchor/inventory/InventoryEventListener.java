@@ -42,7 +42,10 @@ public class InventoryEventListener implements Listener {
         }
 
         ItemStack clickedItem = event.getCurrentItem();
-        event.setCancelled(!(holder instanceof PickableInventory));
+        if (holder instanceof PickableInventory pickableInventory)
+            event.setCancelled(!pickableInventory.canPickup());
+        else
+            event.setCancelled(true);
 
         if (holder instanceof ClickableInventory clickable) {
             clickable.onClickEvent(event, clickedItem);
